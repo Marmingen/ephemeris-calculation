@@ -1,6 +1,6 @@
-% Ephemeris Calculation
+# Ephemeris Calculation
 
-%% General information 
+## General information 
 
 *************************************************************************
 EPHEMERIS CALCULATION
@@ -10,7 +10,7 @@ elements, observation date, and returns it as declination and right
 ascension
 *************************************************************************
 
-%% Standard input
+## Standard input
 
 When running the program you're faced with the following prompt
 
