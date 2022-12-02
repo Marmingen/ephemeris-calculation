@@ -2,7 +2,7 @@
 Calculating the ephemeris of a celestial body
 
 """
-#############################################################
+###################################################################################
 ## IMPORTS
 
 from Vector import Vector
@@ -12,7 +12,7 @@ import os
 import time
 from NR import new_rap
 
-#############################################################
+###################################################################################
 ## GLOBAL CONSTANTS
 
 # Meta usage
@@ -34,7 +34,7 @@ c =  2.99792458e8 # m/s
 # Lambda funcs
 clear = lambda: os.system('cls')
 
-#############################################################
+###################################################################################
 ## FUNCTIONS
 
 ############################################
@@ -66,7 +66,11 @@ def rad_to_deg(ang):
     
     res = abs(res-min/60)
 
-    sec = int(res*60*60)
+    sec = int(res*60*60+0.5)
+    
+    if sec == 60:
+        min += 1
+        sec = 0
     
     return f"{deg}◦ {min}\' {sec}\""
 
@@ -90,7 +94,7 @@ def rad_to_time(ang):
     
     res = res - m*360/24/60
     
-    s = int(res/360*24*3600+0.5)
+    s = round(res/360*24*3600,2)
     
     return f"{h}h {m}m {s}s"
 
@@ -268,6 +272,12 @@ def write_data(celestial_info, positions, corr_pos, calcs,\
         space()
     f.write(bar)
     
+def print_positional(positions):
+    clear()
+    print(bar)
+    for pos, name in zip(positions,["orbital","ecliptic","equatorial"]):
+        print(f"{name} | {pos} [au]")
+    print(bar)
 
 ############################################
 ## DEFINING ELEMENTS
@@ -469,7 +479,7 @@ def conv_to_disp(calcs):
     
     return temp
 
-#############################################################
+###################################################################################
 ## MAIN
     
 def main():
@@ -522,6 +532,8 @@ def main():
     
     print_data(celestial_info, positions, corr_pos, calc_conv, corr_conv, angles, corr_angles, corr)
     
+    print_positional(positions)
+    
     input("press [ENTER] to exit...")
     
     print(f"saving to {celestial_info[0]}.txt")
@@ -530,7 +542,7 @@ def main():
     with open(f"{celestial_info[0]}.txt", "w") as f:
         write_data(celestial_info, positions, corr_pos, calc_conv, corr_conv, angles, corr_angles, corr, f)
         
-#############################################################    
+###################################################################################    
 ## RUN CODE
 
 if __name__ == "__main__":

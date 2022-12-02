@@ -1,5 +1,11 @@
+###################################################################################
+## IMPORTS
+
 import numpy as np
 import sympy
+
+###################################################################################
+## NEWTON_RAPHSON METHOD FOR KEPLER'S EQ
 
 """ 
 Newton-Raphson method for numerically
@@ -13,14 +19,16 @@ def new_rap(n, M, e):
     # derivative, analytically done
     fprim = 1-e*sympy.cos(E)
     
-    # good firdt-value is M
+    # good first-value is M
     # due to Taylor-expansion of sine
     En = M
     
     for _ in range(n):
         En = En - np.float(f.evalf(subs= {E:En})) / np.float(fprim.evalf(subs= {E:En}))
     
-    return En    
-
+    return En  
+  
+###################################################################################
+## RUN CODE
 if __name__ == "__main__":
     i = new_rap(2, 3, 2)
